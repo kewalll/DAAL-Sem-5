@@ -18,18 +18,21 @@ double fractionalKnapsack(int W, struct Item arr[], int N)
 {
 	sort(arr, arr + N, cmp);
 	double finalvalue = 0.0;
+	float itemCount = 0;
 	for (int i = 0; i < N; i++) {
 		if (arr[i].weight <= W) {
 			W -= arr[i].weight;
 			finalvalue += arr[i].profit;
+			itemCount++;
 		}
 		else {
-			finalvalue
-				+= arr[i].profit
-				* ((double)W / (double)arr[i].weight);
+		    double fraction = (double)W / (double)arr[i].weight;
+			finalvalue += arr[i].profit * fraction;
+			itemCount += fraction;
 			break;
 		}
 	}
+	cout << "Total number of items (or fractions thereof) in the knapsack: " << itemCount << endl;
 	return finalvalue;
 }
 int main()
